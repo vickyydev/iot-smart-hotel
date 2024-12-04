@@ -1,0 +1,3020 @@
+2024-12-04 10:32:24,464 - INFO - ================================================================================
+2024-12-04 10:32:24,465 - INFO - Starting Smart Hotel system tests...
+2024-12-04 10:32:24,465 - INFO - ================================================================================
+2024-12-04 10:32:24,465 - INFO - Setting up test data...
+2024-12-04 10:32:24,466 - INFO - Making GET request to: http://web:8000/api/hotels/
+2024-12-04 10:32:24,478 - INFO - Response status code: 200
+2024-12-04 10:32:24,478 - INFO - Response data: {
+  "count": 0,
+  "next": null,
+  "previous": null,
+  "results": []
+}
+2024-12-04 10:32:24,479 - INFO - Making POST request to: http://web:8000/api/hotels/
+2024-12-04 10:32:24,480 - INFO - Request data: {
+  "name": "Test Hotel",
+  "address": "123 Test Street"
+}
+2024-12-04 10:32:24,492 - INFO - Response status code: 201
+2024-12-04 10:32:24,493 - INFO - Response data: {
+  "id": 1,
+  "name": "Test Hotel",
+  "address": "123 Test Street",
+  "created_at": "2024-12-04T10:32:24.487339Z",
+  "updated_at": "2024-12-04T10:32:24.487359Z"
+}
+2024-12-04 10:32:24,493 - INFO - Created hotel with ID: 1
+2024-12-04 10:32:24,494 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/
+2024-12-04 10:32:24,494 - INFO - Request data: {
+  "hotel": 1,
+  "number": 1,
+  "description": "Floor 1 - Test Hotel"
+}
+2024-12-04 10:32:24,506 - INFO - Response status code: 201
+2024-12-04 10:32:24,507 - INFO - Response data: {
+  "id": 1,
+  "hotel": 1,
+  "number": 1,
+  "description": "Floor 1 - Test Hotel",
+  "created_at": "2024-12-04T10:32:24.503645Z",
+  "updated_at": "2024-12-04T10:32:24.503658Z"
+}
+2024-12-04 10:32:24,507 - INFO - Created floor 1 with ID: 1
+2024-12-04 10:32:25,509 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/
+2024-12-04 10:32:25,509 - INFO - Request data: {
+  "hotel": 1,
+  "number": 2,
+  "description": "Floor 2 - Test Hotel"
+}
+2024-12-04 10:32:25,523 - INFO - Response status code: 201
+2024-12-04 10:32:25,523 - INFO - Response data: {
+  "id": 2,
+  "hotel": 1,
+  "number": 2,
+  "description": "Floor 2 - Test Hotel",
+  "created_at": "2024-12-04T10:32:25.520409Z",
+  "updated_at": "2024-12-04T10:32:25.520422Z"
+}
+2024-12-04 10:32:25,524 - INFO - Created floor 2 with ID: 2
+2024-12-04 10:32:26,525 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/
+2024-12-04 10:32:26,526 - INFO - Request data: {
+  "floor": 1,
+  "number": "101",
+  "is_occupied": false
+}
+2024-12-04 10:32:26,539 - INFO - Response status code: 201
+2024-12-04 10:32:26,540 - INFO - Response data: {
+  "id": 1,
+  "floor": 1,
+  "number": "101",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:26.536600Z",
+  "updated_at": "2024-12-04T10:32:26.536611Z"
+}
+2024-12-04 10:32:26,541 - INFO - Created room 101 with ID: 1
+2024-12-04 10:32:26,541 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/1/devices/
+2024-12-04 10:32:26,542 - INFO - Request data: {
+  "room": 1,
+  "device_type": "AC",
+  "name": "AC Unit - Room 101",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:26,561 - INFO - Response status code: 201
+2024-12-04 10:32:26,561 - INFO - Response data: {
+  "id": 1,
+  "room": 1,
+  "name": "AC Unit - Room 101",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:26.551704Z",
+  "created_at": "2024-12-04T10:32:26.551718Z",
+  "ac_control": {
+    "id": 1,
+    "device": 1,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:26.556043Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:26,562 - INFO - Created AC device for room 101
+2024-12-04 10:32:26,562 - INFO - Making POST request to: http://web:8000/api/rooms/1/devices/1/control/
+2024-12-04 10:32:26,563 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:26,581 - INFO - Response status code: 200
+2024-12-04 10:32:26,582 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "101",
+  "settings": {
+    "id": 1,
+    "device": 1,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:26.576159Z"
+  }
+}
+2024-12-04 10:32:27,584 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/
+2024-12-04 10:32:27,584 - INFO - Request data: {
+  "floor": 1,
+  "number": "102",
+  "is_occupied": false
+}
+2024-12-04 10:32:27,599 - INFO - Response status code: 201
+2024-12-04 10:32:27,601 - INFO - Response data: {
+  "id": 2,
+  "floor": 1,
+  "number": "102",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:27.594218Z",
+  "updated_at": "2024-12-04T10:32:27.594231Z"
+}
+2024-12-04 10:32:27,602 - INFO - Created room 102 with ID: 2
+2024-12-04 10:32:27,602 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/2/devices/
+2024-12-04 10:32:27,604 - INFO - Request data: {
+  "room": 2,
+  "device_type": "AC",
+  "name": "AC Unit - Room 102",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:27,623 - INFO - Response status code: 201
+2024-12-04 10:32:27,624 - INFO - Response data: {
+  "id": 2,
+  "room": 2,
+  "name": "AC Unit - Room 102",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:27.615517Z",
+  "created_at": "2024-12-04T10:32:27.615532Z",
+  "ac_control": {
+    "id": 2,
+    "device": 2,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:27.619223Z",
+    "updated_at": "2024-12-04T10:32:27.619238Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:27,624 - INFO - Created AC device for room 102
+2024-12-04 10:32:27,624 - INFO - Making POST request to: http://web:8000/api/rooms/2/devices/2/control/
+2024-12-04 10:32:27,625 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:27,641 - INFO - Response status code: 200
+2024-12-04 10:32:27,642 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "102",
+  "settings": {
+    "id": 2,
+    "device": 2,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:27.619223Z",
+    "updated_at": "2024-12-04T10:32:27.636431Z"
+  }
+}
+2024-12-04 10:32:28,643 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/
+2024-12-04 10:32:28,643 - INFO - Request data: {
+  "floor": 1,
+  "number": "103",
+  "is_occupied": false
+}
+2024-12-04 10:32:28,655 - INFO - Response status code: 201
+2024-12-04 10:32:28,655 - INFO - Response data: {
+  "id": 3,
+  "floor": 1,
+  "number": "103",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:28.652267Z",
+  "updated_at": "2024-12-04T10:32:28.652278Z"
+}
+2024-12-04 10:32:28,656 - INFO - Created room 103 with ID: 3
+2024-12-04 10:32:28,656 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/3/devices/
+2024-12-04 10:32:28,657 - INFO - Request data: {
+  "room": 3,
+  "device_type": "AC",
+  "name": "AC Unit - Room 103",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:28,675 - INFO - Response status code: 201
+2024-12-04 10:32:28,676 - INFO - Response data: {
+  "id": 3,
+  "room": 3,
+  "name": "AC Unit - Room 103",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:28.667387Z",
+  "created_at": "2024-12-04T10:32:28.667398Z",
+  "ac_control": {
+    "id": 3,
+    "device": 3,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:28.670739Z",
+    "updated_at": "2024-12-04T10:32:28.670752Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:28,676 - INFO - Created AC device for room 103
+2024-12-04 10:32:28,676 - INFO - Making POST request to: http://web:8000/api/rooms/3/devices/3/control/
+2024-12-04 10:32:28,677 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:28,694 - INFO - Response status code: 200
+2024-12-04 10:32:28,694 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "103",
+  "settings": {
+    "id": 3,
+    "device": 3,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:28.670739Z",
+    "updated_at": "2024-12-04T10:32:28.689429Z"
+  }
+}
+2024-12-04 10:32:29,696 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/
+2024-12-04 10:32:29,697 - INFO - Request data: {
+  "floor": 1,
+  "number": "104",
+  "is_occupied": false
+}
+2024-12-04 10:32:29,710 - INFO - Response status code: 201
+2024-12-04 10:32:29,711 - INFO - Response data: {
+  "id": 4,
+  "floor": 1,
+  "number": "104",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:29.707538Z",
+  "updated_at": "2024-12-04T10:32:29.707551Z"
+}
+2024-12-04 10:32:29,711 - INFO - Created room 104 with ID: 4
+2024-12-04 10:32:29,712 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/4/devices/
+2024-12-04 10:32:29,712 - INFO - Request data: {
+  "room": 4,
+  "device_type": "AC",
+  "name": "AC Unit - Room 104",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:29,733 - INFO - Response status code: 201
+2024-12-04 10:32:29,734 - INFO - Response data: {
+  "id": 4,
+  "room": 4,
+  "name": "AC Unit - Room 104",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:29.724481Z",
+  "created_at": "2024-12-04T10:32:29.724492Z",
+  "ac_control": {
+    "id": 4,
+    "device": 4,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:29.727866Z",
+    "updated_at": "2024-12-04T10:32:29.727878Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:29,734 - INFO - Created AC device for room 104
+2024-12-04 10:32:29,734 - INFO - Making POST request to: http://web:8000/api/rooms/4/devices/4/control/
+2024-12-04 10:32:29,735 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:29,752 - INFO - Response status code: 200
+2024-12-04 10:32:29,753 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "104",
+  "settings": {
+    "id": 4,
+    "device": 4,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:29.727866Z",
+    "updated_at": "2024-12-04T10:32:29.746846Z"
+  }
+}
+2024-12-04 10:32:30,755 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/
+2024-12-04 10:32:30,755 - INFO - Request data: {
+  "floor": 1,
+  "number": "105",
+  "is_occupied": false
+}
+2024-12-04 10:32:30,768 - INFO - Response status code: 201
+2024-12-04 10:32:30,768 - INFO - Response data: {
+  "id": 5,
+  "floor": 1,
+  "number": "105",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:30.765150Z",
+  "updated_at": "2024-12-04T10:32:30.765160Z"
+}
+2024-12-04 10:32:30,769 - INFO - Created room 105 with ID: 5
+2024-12-04 10:32:30,770 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/1/rooms/5/devices/
+2024-12-04 10:32:30,770 - INFO - Request data: {
+  "room": 5,
+  "device_type": "AC",
+  "name": "AC Unit - Room 105",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:30,789 - INFO - Response status code: 201
+2024-12-04 10:32:30,789 - INFO - Response data: {
+  "id": 5,
+  "room": 5,
+  "name": "AC Unit - Room 105",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:30.781124Z",
+  "created_at": "2024-12-04T10:32:30.781136Z",
+  "ac_control": {
+    "id": 5,
+    "device": 5,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:30.784837Z",
+    "updated_at": "2024-12-04T10:32:30.784853Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:30,790 - INFO - Created AC device for room 105
+2024-12-04 10:32:30,790 - INFO - Making POST request to: http://web:8000/api/rooms/5/devices/5/control/
+2024-12-04 10:32:30,790 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:30,807 - INFO - Response status code: 200
+2024-12-04 10:32:30,807 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "105",
+  "settings": {
+    "id": 5,
+    "device": 5,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:30.784837Z",
+    "updated_at": "2024-12-04T10:32:30.802429Z"
+  }
+}
+2024-12-04 10:32:31,809 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/
+2024-12-04 10:32:31,809 - INFO - Request data: {
+  "floor": 2,
+  "number": "201",
+  "is_occupied": false
+}
+2024-12-04 10:32:31,821 - INFO - Response status code: 201
+2024-12-04 10:32:31,821 - INFO - Response data: {
+  "id": 6,
+  "floor": 2,
+  "number": "201",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:31.818267Z",
+  "updated_at": "2024-12-04T10:32:31.818278Z"
+}
+2024-12-04 10:32:31,821 - INFO - Created room 201 with ID: 6
+2024-12-04 10:32:31,822 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/6/devices/
+2024-12-04 10:32:31,822 - INFO - Request data: {
+  "room": 6,
+  "device_type": "AC",
+  "name": "AC Unit - Room 201",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:31,841 - INFO - Response status code: 201
+2024-12-04 10:32:31,842 - INFO - Response data: {
+  "id": 6,
+  "room": 6,
+  "name": "AC Unit - Room 201",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:31.833391Z",
+  "created_at": "2024-12-04T10:32:31.833406Z",
+  "ac_control": {
+    "id": 6,
+    "device": 6,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:31.837262Z",
+    "updated_at": "2024-12-04T10:32:31.837276Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:31,842 - INFO - Created AC device for room 201
+2024-12-04 10:32:31,842 - INFO - Making POST request to: http://web:8000/api/rooms/6/devices/6/control/
+2024-12-04 10:32:31,843 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:31,858 - INFO - Response status code: 200
+2024-12-04 10:32:31,859 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "201",
+  "settings": {
+    "id": 6,
+    "device": 6,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:31.837262Z",
+    "updated_at": "2024-12-04T10:32:31.853576Z"
+  }
+}
+2024-12-04 10:32:32,860 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/
+2024-12-04 10:32:32,861 - INFO - Request data: {
+  "floor": 2,
+  "number": "202",
+  "is_occupied": false
+}
+2024-12-04 10:32:32,873 - INFO - Response status code: 201
+2024-12-04 10:32:32,874 - INFO - Response data: {
+  "id": 7,
+  "floor": 2,
+  "number": "202",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:32.870391Z",
+  "updated_at": "2024-12-04T10:32:32.870401Z"
+}
+2024-12-04 10:32:32,874 - INFO - Created room 202 with ID: 7
+2024-12-04 10:32:32,874 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/7/devices/
+2024-12-04 10:32:32,875 - INFO - Request data: {
+  "room": 7,
+  "device_type": "AC",
+  "name": "AC Unit - Room 202",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:32,892 - INFO - Response status code: 201
+2024-12-04 10:32:32,893 - INFO - Response data: {
+  "id": 7,
+  "room": 7,
+  "name": "AC Unit - Room 202",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:32.884978Z",
+  "created_at": "2024-12-04T10:32:32.884989Z",
+  "ac_control": {
+    "id": 7,
+    "device": 7,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:32.888140Z",
+    "updated_at": "2024-12-04T10:32:32.888153Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:32,893 - INFO - Created AC device for room 202
+2024-12-04 10:32:32,893 - INFO - Making POST request to: http://web:8000/api/rooms/7/devices/7/control/
+2024-12-04 10:32:32,894 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:32,911 - INFO - Response status code: 200
+2024-12-04 10:32:32,912 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "202",
+  "settings": {
+    "id": 7,
+    "device": 7,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:32.888140Z",
+    "updated_at": "2024-12-04T10:32:32.906414Z"
+  }
+}
+2024-12-04 10:32:33,913 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/
+2024-12-04 10:32:33,914 - INFO - Request data: {
+  "floor": 2,
+  "number": "203",
+  "is_occupied": false
+}
+2024-12-04 10:32:33,927 - INFO - Response status code: 201
+2024-12-04 10:32:33,927 - INFO - Response data: {
+  "id": 8,
+  "floor": 2,
+  "number": "203",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:33.924123Z",
+  "updated_at": "2024-12-04T10:32:33.924132Z"
+}
+2024-12-04 10:32:33,928 - INFO - Created room 203 with ID: 8
+2024-12-04 10:32:33,928 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/8/devices/
+2024-12-04 10:32:33,929 - INFO - Request data: {
+  "room": 8,
+  "device_type": "AC",
+  "name": "AC Unit - Room 203",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:33,948 - INFO - Response status code: 201
+2024-12-04 10:32:33,949 - INFO - Response data: {
+  "id": 8,
+  "room": 8,
+  "name": "AC Unit - Room 203",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:33.939857Z",
+  "created_at": "2024-12-04T10:32:33.940049Z",
+  "ac_control": {
+    "id": 8,
+    "device": 8,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:33.943774Z",
+    "updated_at": "2024-12-04T10:32:33.943788Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:33,949 - INFO - Created AC device for room 203
+2024-12-04 10:32:33,950 - INFO - Making POST request to: http://web:8000/api/rooms/8/devices/8/control/
+2024-12-04 10:32:33,951 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:33,968 - INFO - Response status code: 200
+2024-12-04 10:32:33,969 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "203",
+  "settings": {
+    "id": 8,
+    "device": 8,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:33.943774Z",
+    "updated_at": "2024-12-04T10:32:33.963214Z"
+  }
+}
+2024-12-04 10:32:34,970 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/
+2024-12-04 10:32:34,971 - INFO - Request data: {
+  "floor": 2,
+  "number": "204",
+  "is_occupied": false
+}
+2024-12-04 10:32:34,983 - INFO - Response status code: 201
+2024-12-04 10:32:34,984 - INFO - Response data: {
+  "id": 9,
+  "floor": 2,
+  "number": "204",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:34.980374Z",
+  "updated_at": "2024-12-04T10:32:34.980385Z"
+}
+2024-12-04 10:32:34,984 - INFO - Created room 204 with ID: 9
+2024-12-04 10:32:34,985 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/9/devices/
+2024-12-04 10:32:34,985 - INFO - Request data: {
+  "room": 9,
+  "device_type": "AC",
+  "name": "AC Unit - Room 204",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:35,004 - INFO - Response status code: 201
+2024-12-04 10:32:35,004 - INFO - Response data: {
+  "id": 9,
+  "room": 9,
+  "name": "AC Unit - Room 204",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:34.996593Z",
+  "created_at": "2024-12-04T10:32:34.996605Z",
+  "ac_control": {
+    "id": 9,
+    "device": 9,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:34.999991Z",
+    "updated_at": "2024-12-04T10:32:35.000004Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:35,005 - INFO - Created AC device for room 204
+2024-12-04 10:32:35,005 - INFO - Making POST request to: http://web:8000/api/rooms/9/devices/9/control/
+2024-12-04 10:32:35,005 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:35,021 - INFO - Response status code: 200
+2024-12-04 10:32:35,022 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "204",
+  "settings": {
+    "id": 9,
+    "device": 9,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:34.999991Z",
+    "updated_at": "2024-12-04T10:32:35.016547Z"
+  }
+}
+2024-12-04 10:32:36,023 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/
+2024-12-04 10:32:36,024 - INFO - Request data: {
+  "floor": 2,
+  "number": "205",
+  "is_occupied": false
+}
+2024-12-04 10:32:36,036 - INFO - Response status code: 201
+2024-12-04 10:32:36,037 - INFO - Response data: {
+  "id": 10,
+  "floor": 2,
+  "number": "205",
+  "is_occupied": false,
+  "last_cleaned": null,
+  "created_at": "2024-12-04T10:32:36.032543Z",
+  "updated_at": "2024-12-04T10:32:36.032554Z"
+}
+2024-12-04 10:32:36,038 - INFO - Created room 205 with ID: 10
+2024-12-04 10:32:36,038 - INFO - Making POST request to: http://web:8000/api/hotels/1/floors/2/rooms/10/devices/
+2024-12-04 10:32:36,038 - INFO - Request data: {
+  "room": 10,
+  "device_type": "AC",
+  "name": "AC Unit - Room 205",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  }
+}
+2024-12-04 10:32:36,057 - INFO - Response status code: 201
+2024-12-04 10:32:36,058 - INFO - Response data: {
+  "id": 10,
+  "room": 10,
+  "name": "AC Unit - Room 205",
+  "device_type": "AC",
+  "status": "ON",
+  "settings": {
+    "mode": "AUTO",
+    "temperature": 24.0,
+    "fan_speed": 1
+  },
+  "last_maintained": null,
+  "last_updated": "2024-12-04T10:32:36.049418Z",
+  "created_at": "2024-12-04T10:32:36.049430Z",
+  "ac_control": {
+    "id": 10,
+    "device": 10,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:36.053648Z",
+    "updated_at": "2024-12-04T10:32:36.053662Z"
+  },
+  "lighting_control": null
+}
+2024-12-04 10:32:36,058 - INFO - Created AC device for room 205
+2024-12-04 10:32:36,059 - INFO - Making POST request to: http://web:8000/api/rooms/10/devices/10/control/
+2024-12-04 10:32:36,059 - INFO - Request data: {
+  "temperature": 24.0,
+  "mode": "AUTO",
+  "fan_speed": 1,
+  "humidity_control": true,
+  "target_humidity": 50
+}
+2024-12-04 10:32:36,074 - INFO - Response status code: 200
+2024-12-04 10:32:36,075 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "205",
+  "settings": {
+    "id": 10,
+    "device": 10,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:36.053648Z",
+    "updated_at": "2024-12-04T10:32:36.070012Z"
+  }
+}
+2024-12-04 10:32:37,076 - INFO - 
+========================================
+2024-12-04 10:32:37,076 - INFO - Running test: test_room_status
+2024-12-04 10:32:37,077 - INFO - 
+Testing room status...
+2024-12-04 10:32:37,077 - INFO - Making GET request to: http://web:8000/api/rooms/1/status/
+2024-12-04 10:32:37,091 - INFO - Response status code: 200
+2024-12-04 10:32:37,093 - INFO - Response data: {
+  "room_number": "101",
+  "occupied": true,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 2,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:28.359734Z",
+    "temperature": 18.25,
+    "humidity": 31.02,
+    "co2": 786.5,
+    "tvoc": 0.45,
+    "pm25": 68.67,
+    "noise": 30.18,
+    "illuminance": 704.3,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 2,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:28.367969Z",
+    "presence_detected": true,
+    "motion_level": 62,
+    "presence_state": "occupied",
+    "sensitivity": 0.86,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 1,
+    "device": 1,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:26.576159Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:37,093 - INFO - Room status retrieved successfully
+2024-12-04 10:32:37,094 - INFO - {
+  "room_number": "101",
+  "occupied": true,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 2,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:28.359734Z",
+    "temperature": 18.25,
+    "humidity": 31.02,
+    "co2": 786.5,
+    "tvoc": 0.45,
+    "pm25": 68.67,
+    "noise": 30.18,
+    "illuminance": 704.3,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 2,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:28.367969Z",
+    "presence_detected": true,
+    "motion_level": 62,
+    "presence_state": "occupied",
+    "sensitivity": 0.86,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 1,
+    "device": 1,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:26.576159Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:37,094 - INFO - 
+========================================
+2024-12-04 10:32:37,094 - INFO - Running test: test_ac_control
+2024-12-04 10:32:37,095 - INFO - 
+Testing AC control...
+2024-12-04 10:32:37,095 - INFO - Testing AC settings: {'temperature': 23, 'mode': 'COOL', 'fan_speed': 2}
+2024-12-04 10:32:37,097 - INFO - Making POST request to: http://web:8000/api/rooms/1/devices/1/control/
+2024-12-04 10:32:37,098 - INFO - Request data: {
+  "temperature": 23,
+  "mode": "COOL",
+  "fan_speed": 2
+}
+2024-12-04 10:32:37,117 - INFO - Response status code: 200
+2024-12-04 10:32:37,117 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "101",
+  "settings": {
+    "id": 1,
+    "device": 1,
+    "temperature": 23.0,
+    "mode": "COOL",
+    "fan_speed": 2,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:37.112142Z"
+  }
+}
+2024-12-04 10:32:37,118 - INFO - AC control successful
+2024-12-04 10:32:38,119 - INFO - Testing AC settings: {'temperature': 25, 'mode': 'AUTO', 'fan_speed': 1}
+2024-12-04 10:32:38,120 - INFO - Making POST request to: http://web:8000/api/rooms/1/devices/1/control/
+2024-12-04 10:32:38,121 - INFO - Request data: {
+  "temperature": 25,
+  "mode": "AUTO",
+  "fan_speed": 1
+}
+2024-12-04 10:32:38,137 - INFO - Response status code: 200
+2024-12-04 10:32:38,137 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "101",
+  "settings": {
+    "id": 1,
+    "device": 1,
+    "temperature": 25.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:38.132118Z"
+  }
+}
+2024-12-04 10:32:38,138 - INFO - AC control successful
+2024-12-04 10:32:39,139 - INFO - Testing AC settings: {'temperature': 26, 'mode': 'FAN', 'fan_speed': 3}
+2024-12-04 10:32:39,140 - INFO - Making POST request to: http://web:8000/api/rooms/1/devices/1/control/
+2024-12-04 10:32:39,140 - INFO - Request data: {
+  "temperature": 26,
+  "mode": "FAN",
+  "fan_speed": 3
+}
+2024-12-04 10:32:39,162 - INFO - Response status code: 200
+2024-12-04 10:32:39,162 - INFO - Response data: {
+  "status": "success",
+  "message": "AC settings updated successfully",
+  "device_type": "AC",
+  "room_number": "101",
+  "settings": {
+    "id": 1,
+    "device": 1,
+    "temperature": 26.0,
+    "mode": "FAN",
+    "fan_speed": 3,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:39.152616Z"
+  }
+}
+2024-12-04 10:32:39,163 - INFO - AC control successful
+2024-12-04 10:32:40,164 - INFO - 
+========================================
+2024-12-04 10:32:40,165 - INFO - Running test: test_occupancy_response
+2024-12-04 10:32:40,165 - INFO - 
+Testing occupancy response...
+2024-12-04 10:32:40,166 - INFO - Making POST request to: http://web:8000/api/rooms/1/data/life-being/
+2024-12-04 10:32:40,166 - INFO - Request data: {
+  "room": 1,
+  "presence_detected": true,
+  "motion_level": 93,
+  "presence_state": "occupied",
+  "sensitivity": 0.9
+}
+2024-12-04 10:32:40,181 - INFO - Response status code: 201
+2024-12-04 10:32:40,181 - INFO - Response data: {
+  "id": 3,
+  "room": 1,
+  "timestamp": "2024-12-04T10:32:40.175802Z",
+  "presence_detected": true,
+  "motion_level": 93,
+  "presence_state": "occupied",
+  "sensitivity": 0.9,
+  "online_status": true
+}
+2024-12-04 10:32:40,682 - INFO - Making GET request to: http://web:8000/api/rooms/1/status/
+2024-12-04 10:32:40,697 - INFO - Response status code: 200
+2024-12-04 10:32:40,697 - INFO - Response data: {
+  "room_number": "101",
+  "occupied": true,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 2,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:28.359734Z",
+    "temperature": 18.25,
+    "humidity": 31.02,
+    "co2": 786.5,
+    "tvoc": 0.45,
+    "pm25": 68.67,
+    "noise": 30.18,
+    "illuminance": 704.3,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 3,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:40.175802Z",
+    "presence_detected": true,
+    "motion_level": 93,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 1,
+    "device": 1,
+    "temperature": 26.0,
+    "mode": "FAN",
+    "fan_speed": 3,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:39.152616Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:40,698 - INFO - Room 1 status after occupancy:
+2024-12-04 10:32:40,698 - INFO - {
+  "room_number": "101",
+  "occupied": true,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 2,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:28.359734Z",
+    "temperature": 18.25,
+    "humidity": 31.02,
+    "co2": 786.5,
+    "tvoc": 0.45,
+    "pm25": 68.67,
+    "noise": 30.18,
+    "illuminance": 704.3,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 3,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:40.175802Z",
+    "presence_detected": true,
+    "motion_level": 93,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 1,
+    "device": 1,
+    "temperature": 26.0,
+    "mode": "FAN",
+    "fan_speed": 3,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:39.152616Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:40,699 - INFO - Making POST request to: http://web:8000/api/rooms/2/data/life-being/
+2024-12-04 10:32:40,700 - INFO - Request data: {
+  "room": 2,
+  "presence_detected": true,
+  "motion_level": 95,
+  "presence_state": "occupied",
+  "sensitivity": 0.8
+}
+2024-12-04 10:32:40,713 - INFO - Response status code: 201
+2024-12-04 10:32:40,714 - INFO - Response data: {
+  "id": 4,
+  "room": 2,
+  "timestamp": "2024-12-04T10:32:40.710269Z",
+  "presence_detected": true,
+  "motion_level": 95,
+  "presence_state": "occupied",
+  "sensitivity": 0.8,
+  "online_status": true
+}
+2024-12-04 10:32:41,215 - INFO - Making GET request to: http://web:8000/api/rooms/2/status/
+2024-12-04 10:32:41,230 - INFO - Response status code: 200
+2024-12-04 10:32:41,232 - INFO - Response data: {
+  "room_number": "102",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 4,
+    "room": 2,
+    "timestamp": "2024-12-04T10:32:40.710269Z",
+    "presence_detected": true,
+    "motion_level": 95,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 2,
+    "device": 2,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:27.619223Z",
+    "updated_at": "2024-12-04T10:32:27.636431Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:41,233 - INFO - Room 2 status after occupancy:
+2024-12-04 10:32:41,234 - INFO - {
+  "room_number": "102",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 4,
+    "room": 2,
+    "timestamp": "2024-12-04T10:32:40.710269Z",
+    "presence_detected": true,
+    "motion_level": 95,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 2,
+    "device": 2,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:27.619223Z",
+    "updated_at": "2024-12-04T10:32:27.636431Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:41,235 - INFO - Making POST request to: http://web:8000/api/rooms/3/data/life-being/
+2024-12-04 10:32:41,236 - INFO - Request data: {
+  "room": 3,
+  "presence_detected": true,
+  "motion_level": 86,
+  "presence_state": "occupied",
+  "sensitivity": 0.8
+}
+2024-12-04 10:32:41,248 - INFO - Response status code: 201
+2024-12-04 10:32:41,249 - INFO - Response data: {
+  "id": 5,
+  "room": 3,
+  "timestamp": "2024-12-04T10:32:41.245101Z",
+  "presence_detected": true,
+  "motion_level": 86,
+  "presence_state": "occupied",
+  "sensitivity": 0.8,
+  "online_status": true
+}
+2024-12-04 10:32:41,750 - INFO - Making GET request to: http://web:8000/api/rooms/3/status/
+2024-12-04 10:32:41,765 - INFO - Response status code: 200
+2024-12-04 10:32:41,766 - INFO - Response data: {
+  "room_number": "103",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 5,
+    "room": 3,
+    "timestamp": "2024-12-04T10:32:41.245101Z",
+    "presence_detected": true,
+    "motion_level": 86,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 3,
+    "device": 3,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:28.670739Z",
+    "updated_at": "2024-12-04T10:32:28.689429Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:41,766 - INFO - Room 3 status after occupancy:
+2024-12-04 10:32:41,767 - INFO - {
+  "room_number": "103",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 5,
+    "room": 3,
+    "timestamp": "2024-12-04T10:32:41.245101Z",
+    "presence_detected": true,
+    "motion_level": 86,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 3,
+    "device": 3,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:28.670739Z",
+    "updated_at": "2024-12-04T10:32:28.689429Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:41,768 - INFO - Making POST request to: http://web:8000/api/rooms/4/data/life-being/
+2024-12-04 10:32:41,771 - INFO - Request data: {
+  "room": 4,
+  "presence_detected": true,
+  "motion_level": 76,
+  "presence_state": "occupied",
+  "sensitivity": 0.8
+}
+2024-12-04 10:32:41,782 - INFO - Response status code: 201
+2024-12-04 10:32:41,783 - INFO - Response data: {
+  "id": 6,
+  "room": 4,
+  "timestamp": "2024-12-04T10:32:41.779439Z",
+  "presence_detected": true,
+  "motion_level": 76,
+  "presence_state": "occupied",
+  "sensitivity": 0.8,
+  "online_status": true
+}
+2024-12-04 10:32:42,284 - INFO - Making GET request to: http://web:8000/api/rooms/4/status/
+2024-12-04 10:32:42,298 - INFO - Response status code: 200
+2024-12-04 10:32:42,299 - INFO - Response data: {
+  "room_number": "104",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 6,
+    "room": 4,
+    "timestamp": "2024-12-04T10:32:41.779439Z",
+    "presence_detected": true,
+    "motion_level": 76,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 4,
+    "device": 4,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:29.727866Z",
+    "updated_at": "2024-12-04T10:32:29.746846Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:42,299 - INFO - Room 4 status after occupancy:
+2024-12-04 10:32:42,299 - INFO - {
+  "room_number": "104",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 6,
+    "room": 4,
+    "timestamp": "2024-12-04T10:32:41.779439Z",
+    "presence_detected": true,
+    "motion_level": 76,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 4,
+    "device": 4,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:29.727866Z",
+    "updated_at": "2024-12-04T10:32:29.746846Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:42,300 - INFO - Making POST request to: http://web:8000/api/rooms/5/data/life-being/
+2024-12-04 10:32:42,302 - INFO - Request data: {
+  "room": 5,
+  "presence_detected": true,
+  "motion_level": 65,
+  "presence_state": "occupied",
+  "sensitivity": 0.7
+}
+2024-12-04 10:32:42,316 - INFO - Response status code: 201
+2024-12-04 10:32:42,316 - INFO - Response data: {
+  "id": 7,
+  "room": 5,
+  "timestamp": "2024-12-04T10:32:42.312090Z",
+  "presence_detected": true,
+  "motion_level": 65,
+  "presence_state": "occupied",
+  "sensitivity": 0.7,
+  "online_status": true
+}
+2024-12-04 10:32:42,817 - INFO - Making GET request to: http://web:8000/api/rooms/5/status/
+2024-12-04 10:32:42,830 - INFO - Response status code: 200
+2024-12-04 10:32:42,831 - INFO - Response data: {
+  "room_number": "105",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 7,
+    "room": 5,
+    "timestamp": "2024-12-04T10:32:42.312090Z",
+    "presence_detected": true,
+    "motion_level": 65,
+    "presence_state": "occupied",
+    "sensitivity": 0.7,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 5,
+    "device": 5,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:30.784837Z",
+    "updated_at": "2024-12-04T10:32:30.802429Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:42,831 - INFO - Room 5 status after occupancy:
+2024-12-04 10:32:42,832 - INFO - {
+  "room_number": "105",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 7,
+    "room": 5,
+    "timestamp": "2024-12-04T10:32:42.312090Z",
+    "presence_detected": true,
+    "motion_level": 65,
+    "presence_state": "occupied",
+    "sensitivity": 0.7,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 5,
+    "device": 5,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:30.784837Z",
+    "updated_at": "2024-12-04T10:32:30.802429Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:42,832 - INFO - Making POST request to: http://web:8000/api/rooms/6/data/life-being/
+2024-12-04 10:32:42,833 - INFO - Request data: {
+  "room": 6,
+  "presence_detected": true,
+  "motion_level": 71,
+  "presence_state": "occupied",
+  "sensitivity": 0.7
+}
+2024-12-04 10:32:42,846 - INFO - Response status code: 201
+2024-12-04 10:32:42,846 - INFO - Response data: {
+  "id": 8,
+  "room": 6,
+  "timestamp": "2024-12-04T10:32:42.842271Z",
+  "presence_detected": true,
+  "motion_level": 71,
+  "presence_state": "occupied",
+  "sensitivity": 0.7,
+  "online_status": true
+}
+2024-12-04 10:32:43,348 - INFO - Making GET request to: http://web:8000/api/rooms/6/status/
+2024-12-04 10:32:43,363 - INFO - Response status code: 200
+2024-12-04 10:32:43,363 - INFO - Response data: {
+  "room_number": "201",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 8,
+    "room": 6,
+    "timestamp": "2024-12-04T10:32:42.842271Z",
+    "presence_detected": true,
+    "motion_level": 71,
+    "presence_state": "occupied",
+    "sensitivity": 0.7,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 6,
+    "device": 6,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:31.837262Z",
+    "updated_at": "2024-12-04T10:32:31.853576Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:43,364 - INFO - Room 6 status after occupancy:
+2024-12-04 10:32:43,364 - INFO - {
+  "room_number": "201",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 8,
+    "room": 6,
+    "timestamp": "2024-12-04T10:32:42.842271Z",
+    "presence_detected": true,
+    "motion_level": 71,
+    "presence_state": "occupied",
+    "sensitivity": 0.7,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 6,
+    "device": 6,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:31.837262Z",
+    "updated_at": "2024-12-04T10:32:31.853576Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:43,364 - INFO - Making POST request to: http://web:8000/api/rooms/7/data/life-being/
+2024-12-04 10:32:43,365 - INFO - Request data: {
+  "room": 7,
+  "presence_detected": true,
+  "motion_level": 87,
+  "presence_state": "occupied",
+  "sensitivity": 0.9
+}
+2024-12-04 10:32:43,377 - INFO - Response status code: 201
+2024-12-04 10:32:43,377 - INFO - Response data: {
+  "id": 9,
+  "room": 7,
+  "timestamp": "2024-12-04T10:32:43.373326Z",
+  "presence_detected": true,
+  "motion_level": 87,
+  "presence_state": "occupied",
+  "sensitivity": 0.9,
+  "online_status": true
+}
+2024-12-04 10:32:43,878 - INFO - Making GET request to: http://web:8000/api/rooms/7/status/
+2024-12-04 10:32:43,892 - INFO - Response status code: 200
+2024-12-04 10:32:43,893 - INFO - Response data: {
+  "room_number": "202",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 9,
+    "room": 7,
+    "timestamp": "2024-12-04T10:32:43.373326Z",
+    "presence_detected": true,
+    "motion_level": 87,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 7,
+    "device": 7,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:32.888140Z",
+    "updated_at": "2024-12-04T10:32:32.906414Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:43,894 - INFO - Room 7 status after occupancy:
+2024-12-04 10:32:43,894 - INFO - {
+  "room_number": "202",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 9,
+    "room": 7,
+    "timestamp": "2024-12-04T10:32:43.373326Z",
+    "presence_detected": true,
+    "motion_level": 87,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 7,
+    "device": 7,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:32.888140Z",
+    "updated_at": "2024-12-04T10:32:32.906414Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:43,895 - INFO - Making POST request to: http://web:8000/api/rooms/8/data/life-being/
+2024-12-04 10:32:43,897 - INFO - Request data: {
+  "room": 8,
+  "presence_detected": true,
+  "motion_level": 89,
+  "presence_state": "occupied",
+  "sensitivity": 0.9
+}
+2024-12-04 10:32:43,911 - INFO - Response status code: 201
+2024-12-04 10:32:43,911 - INFO - Response data: {
+  "id": 12,
+  "room": 8,
+  "timestamp": "2024-12-04T10:32:43.907332Z",
+  "presence_detected": true,
+  "motion_level": 89,
+  "presence_state": "occupied",
+  "sensitivity": 0.9,
+  "online_status": true
+}
+2024-12-04 10:32:44,412 - INFO - Making GET request to: http://web:8000/api/rooms/8/status/
+2024-12-04 10:32:44,427 - INFO - Response status code: 200
+2024-12-04 10:32:44,428 - INFO - Response data: {
+  "room_number": "203",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 12,
+    "room": 8,
+    "timestamp": "2024-12-04T10:32:43.907332Z",
+    "presence_detected": true,
+    "motion_level": 89,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 8,
+    "device": 8,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:33.943774Z",
+    "updated_at": "2024-12-04T10:32:33.963214Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:44,429 - INFO - Room 8 status after occupancy:
+2024-12-04 10:32:44,429 - INFO - {
+  "room_number": "203",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 12,
+    "room": 8,
+    "timestamp": "2024-12-04T10:32:43.907332Z",
+    "presence_detected": true,
+    "motion_level": 89,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 8,
+    "device": 8,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:33.943774Z",
+    "updated_at": "2024-12-04T10:32:33.963214Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:44,430 - INFO - Making POST request to: http://web:8000/api/rooms/9/data/life-being/
+2024-12-04 10:32:44,431 - INFO - Request data: {
+  "room": 9,
+  "presence_detected": true,
+  "motion_level": 93,
+  "presence_state": "occupied",
+  "sensitivity": 0.8
+}
+2024-12-04 10:32:44,447 - INFO - Response status code: 201
+2024-12-04 10:32:44,448 - INFO - Response data: {
+  "id": 13,
+  "room": 9,
+  "timestamp": "2024-12-04T10:32:44.443705Z",
+  "presence_detected": true,
+  "motion_level": 93,
+  "presence_state": "occupied",
+  "sensitivity": 0.8,
+  "online_status": true
+}
+2024-12-04 10:32:44,949 - INFO - Making GET request to: http://web:8000/api/rooms/9/status/
+2024-12-04 10:32:44,962 - INFO - Response status code: 200
+2024-12-04 10:32:44,963 - INFO - Response data: {
+  "room_number": "204",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 13,
+    "room": 9,
+    "timestamp": "2024-12-04T10:32:44.443705Z",
+    "presence_detected": true,
+    "motion_level": 93,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 9,
+    "device": 9,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:34.999991Z",
+    "updated_at": "2024-12-04T10:32:35.016547Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:44,964 - INFO - Room 9 status after occupancy:
+2024-12-04 10:32:44,964 - INFO - {
+  "room_number": "204",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 13,
+    "room": 9,
+    "timestamp": "2024-12-04T10:32:44.443705Z",
+    "presence_detected": true,
+    "motion_level": 93,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 9,
+    "device": 9,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:34.999991Z",
+    "updated_at": "2024-12-04T10:32:35.016547Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:44,965 - INFO - Making POST request to: http://web:8000/api/rooms/10/data/life-being/
+2024-12-04 10:32:44,966 - INFO - Request data: {
+  "room": 10,
+  "presence_detected": true,
+  "motion_level": 75,
+  "presence_state": "occupied",
+  "sensitivity": 0.8
+}
+2024-12-04 10:32:44,979 - INFO - Response status code: 201
+2024-12-04 10:32:44,980 - INFO - Response data: {
+  "id": 14,
+  "room": 10,
+  "timestamp": "2024-12-04T10:32:44.975910Z",
+  "presence_detected": true,
+  "motion_level": 75,
+  "presence_state": "occupied",
+  "sensitivity": 0.8,
+  "online_status": true
+}
+2024-12-04 10:32:45,481 - INFO - Making GET request to: http://web:8000/api/rooms/10/status/
+2024-12-04 10:32:45,495 - INFO - Response status code: 200
+2024-12-04 10:32:45,497 - INFO - Response data: {
+  "room_number": "205",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 14,
+    "room": 10,
+    "timestamp": "2024-12-04T10:32:44.975910Z",
+    "presence_detected": true,
+    "motion_level": 75,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 10,
+    "device": 10,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:36.053648Z",
+    "updated_at": "2024-12-04T10:32:36.070012Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:45,497 - INFO - Room 10 status after occupancy:
+2024-12-04 10:32:45,498 - INFO - {
+  "room_number": "205",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": null,
+  "presence_data": {
+    "id": 14,
+    "room": 10,
+    "timestamp": "2024-12-04T10:32:44.975910Z",
+    "presence_detected": true,
+    "motion_level": 75,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 10,
+    "device": 10,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:36.053648Z",
+    "updated_at": "2024-12-04T10:32:36.070012Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:45,498 - INFO - 
+========================================
+2024-12-04 10:32:45,500 - INFO - Running test: test_environmental_response
+2024-12-04 10:32:45,501 - INFO - 
+Testing environmental response...
+2024-12-04 10:32:45,501 - INFO - Making POST request to: http://web:8000/api/rooms/1/data/iaq/
+2024-12-04 10:32:45,502 - INFO - Request data: {
+  "room": 1,
+  "temperature": 26.0,
+  "humidity": 73,
+  "co2": 787,
+  "tvoc": 0.66,
+  "pm25": 11,
+  "noise": 35,
+  "illuminance": 438
+}
+2024-12-04 10:32:45,514 - INFO - Response status code: 201
+2024-12-04 10:32:45,515 - INFO - Response data: {
+  "id": 5,
+  "room": 1,
+  "timestamp": "2024-12-04T10:32:45.510523Z",
+  "temperature": 26.0,
+  "humidity": 73.0,
+  "co2": 787.0,
+  "tvoc": 0.66,
+  "pm25": 11.0,
+  "noise": 35.0,
+  "illuminance": 438.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:46,016 - INFO - Making GET request to: http://web:8000/api/rooms/1/status/
+2024-12-04 10:32:46,032 - INFO - Response status code: 200
+2024-12-04 10:32:46,034 - INFO - Response data: {
+  "room_number": "101",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 5,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:45.510523Z",
+    "temperature": 26.0,
+    "humidity": 73.0,
+    "co2": 787.0,
+    "tvoc": 0.66,
+    "pm25": 11.0,
+    "noise": 35.0,
+    "illuminance": 438.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 11,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:43.387928Z",
+    "presence_detected": false,
+    "motion_level": 0,
+    "presence_state": "unoccupied",
+    "sensitivity": 0.82,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 1,
+    "device": 1,
+    "temperature": 26.0,
+    "mode": "FAN",
+    "fan_speed": 3,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:39.152616Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:46,034 - INFO - Room 1 status after environmental change:
+2024-12-04 10:32:46,034 - INFO - {
+  "room_number": "101",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 5,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:45.510523Z",
+    "temperature": 26.0,
+    "humidity": 73.0,
+    "co2": 787.0,
+    "tvoc": 0.66,
+    "pm25": 11.0,
+    "noise": 35.0,
+    "illuminance": 438.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 11,
+    "room": 1,
+    "timestamp": "2024-12-04T10:32:43.387928Z",
+    "presence_detected": false,
+    "motion_level": 0,
+    "presence_state": "unoccupied",
+    "sensitivity": 0.82,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 1,
+    "device": 1,
+    "temperature": 26.0,
+    "mode": "FAN",
+    "fan_speed": 3,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:26.556027Z",
+    "updated_at": "2024-12-04T10:32:39.152616Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:46,035 - INFO - Making POST request to: http://web:8000/api/rooms/2/data/iaq/
+2024-12-04 10:32:46,038 - INFO - Request data: {
+  "room": 2,
+  "temperature": 26.5,
+  "humidity": 55,
+  "co2": 861,
+  "tvoc": 0.71,
+  "pm25": 19,
+  "noise": 40,
+  "illuminance": 450
+}
+2024-12-04 10:32:46,052 - INFO - Response status code: 201
+2024-12-04 10:32:46,052 - INFO - Response data: {
+  "id": 6,
+  "room": 2,
+  "timestamp": "2024-12-04T10:32:46.048197Z",
+  "temperature": 26.5,
+  "humidity": 55.0,
+  "co2": 861.0,
+  "tvoc": 0.71,
+  "pm25": 19.0,
+  "noise": 40.0,
+  "illuminance": 450.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:46,553 - INFO - Making GET request to: http://web:8000/api/rooms/2/status/
+2024-12-04 10:32:46,567 - INFO - Response status code: 200
+2024-12-04 10:32:46,568 - INFO - Response data: {
+  "room_number": "102",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 6,
+    "room": 2,
+    "timestamp": "2024-12-04T10:32:46.048197Z",
+    "temperature": 26.5,
+    "humidity": 55.0,
+    "co2": 861.0,
+    "tvoc": 0.71,
+    "pm25": 19.0,
+    "noise": 40.0,
+    "illuminance": 450.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 4,
+    "room": 2,
+    "timestamp": "2024-12-04T10:32:40.710269Z",
+    "presence_detected": true,
+    "motion_level": 95,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 2,
+    "device": 2,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:27.619223Z",
+    "updated_at": "2024-12-04T10:32:27.636431Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:46,568 - INFO - Room 2 status after environmental change:
+2024-12-04 10:32:46,569 - INFO - {
+  "room_number": "102",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 6,
+    "room": 2,
+    "timestamp": "2024-12-04T10:32:46.048197Z",
+    "temperature": 26.5,
+    "humidity": 55.0,
+    "co2": 861.0,
+    "tvoc": 0.71,
+    "pm25": 19.0,
+    "noise": 40.0,
+    "illuminance": 450.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 4,
+    "room": 2,
+    "timestamp": "2024-12-04T10:32:40.710269Z",
+    "presence_detected": true,
+    "motion_level": 95,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 2,
+    "device": 2,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:27.619223Z",
+    "updated_at": "2024-12-04T10:32:27.636431Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:46,570 - INFO - Making POST request to: http://web:8000/api/rooms/3/data/iaq/
+2024-12-04 10:32:46,570 - INFO - Request data: {
+  "room": 3,
+  "temperature": 26.1,
+  "humidity": 74,
+  "co2": 995,
+  "tvoc": 0.35,
+  "pm25": 12,
+  "noise": 42,
+  "illuminance": 496
+}
+2024-12-04 10:32:46,583 - INFO - Response status code: 201
+2024-12-04 10:32:46,583 - INFO - Response data: {
+  "id": 7,
+  "room": 3,
+  "timestamp": "2024-12-04T10:32:46.579939Z",
+  "temperature": 26.1,
+  "humidity": 74.0,
+  "co2": 995.0,
+  "tvoc": 0.35,
+  "pm25": 12.0,
+  "noise": 42.0,
+  "illuminance": 496.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:47,085 - INFO - Making GET request to: http://web:8000/api/rooms/3/status/
+2024-12-04 10:32:47,100 - INFO - Response status code: 200
+2024-12-04 10:32:47,100 - INFO - Response data: {
+  "room_number": "103",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 7,
+    "room": 3,
+    "timestamp": "2024-12-04T10:32:46.579939Z",
+    "temperature": 26.1,
+    "humidity": 74.0,
+    "co2": 995.0,
+    "tvoc": 0.35,
+    "pm25": 12.0,
+    "noise": 42.0,
+    "illuminance": 496.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 5,
+    "room": 3,
+    "timestamp": "2024-12-04T10:32:41.245101Z",
+    "presence_detected": true,
+    "motion_level": 86,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 3,
+    "device": 3,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:28.670739Z",
+    "updated_at": "2024-12-04T10:32:28.689429Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:47,101 - INFO - Room 3 status after environmental change:
+2024-12-04 10:32:47,101 - INFO - {
+  "room_number": "103",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 7,
+    "room": 3,
+    "timestamp": "2024-12-04T10:32:46.579939Z",
+    "temperature": 26.1,
+    "humidity": 74.0,
+    "co2": 995.0,
+    "tvoc": 0.35,
+    "pm25": 12.0,
+    "noise": 42.0,
+    "illuminance": 496.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 5,
+    "room": 3,
+    "timestamp": "2024-12-04T10:32:41.245101Z",
+    "presence_detected": true,
+    "motion_level": 86,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 3,
+    "device": 3,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:28.670739Z",
+    "updated_at": "2024-12-04T10:32:28.689429Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:47,101 - INFO - Making POST request to: http://web:8000/api/rooms/4/data/iaq/
+2024-12-04 10:32:47,102 - INFO - Request data: {
+  "room": 4,
+  "temperature": 25.7,
+  "humidity": 73,
+  "co2": 607,
+  "tvoc": 0.73,
+  "pm25": 17,
+  "noise": 40,
+  "illuminance": 427
+}
+2024-12-04 10:32:47,115 - INFO - Response status code: 201
+2024-12-04 10:32:47,115 - INFO - Response data: {
+  "id": 8,
+  "room": 4,
+  "timestamp": "2024-12-04T10:32:47.111118Z",
+  "temperature": 25.7,
+  "humidity": 73.0,
+  "co2": 607.0,
+  "tvoc": 0.73,
+  "pm25": 17.0,
+  "noise": 40.0,
+  "illuminance": 427.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:47,616 - INFO - Making GET request to: http://web:8000/api/rooms/4/status/
+2024-12-04 10:32:47,631 - INFO - Response status code: 200
+2024-12-04 10:32:47,631 - INFO - Response data: {
+  "room_number": "104",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 8,
+    "room": 4,
+    "timestamp": "2024-12-04T10:32:47.111118Z",
+    "temperature": 25.7,
+    "humidity": 73.0,
+    "co2": 607.0,
+    "tvoc": 0.73,
+    "pm25": 17.0,
+    "noise": 40.0,
+    "illuminance": 427.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 6,
+    "room": 4,
+    "timestamp": "2024-12-04T10:32:41.779439Z",
+    "presence_detected": true,
+    "motion_level": 76,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 4,
+    "device": 4,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:29.727866Z",
+    "updated_at": "2024-12-04T10:32:29.746846Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:47,631 - INFO - Room 4 status after environmental change:
+2024-12-04 10:32:47,632 - INFO - {
+  "room_number": "104",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 8,
+    "room": 4,
+    "timestamp": "2024-12-04T10:32:47.111118Z",
+    "temperature": 25.7,
+    "humidity": 73.0,
+    "co2": 607.0,
+    "tvoc": 0.73,
+    "pm25": 17.0,
+    "noise": 40.0,
+    "illuminance": 427.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 6,
+    "room": 4,
+    "timestamp": "2024-12-04T10:32:41.779439Z",
+    "presence_detected": true,
+    "motion_level": 76,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 4,
+    "device": 4,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:29.727866Z",
+    "updated_at": "2024-12-04T10:32:29.746846Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:47,632 - INFO - Making POST request to: http://web:8000/api/rooms/5/data/iaq/
+2024-12-04 10:32:47,633 - INFO - Request data: {
+  "room": 5,
+  "temperature": 25.7,
+  "humidity": 72,
+  "co2": 771,
+  "tvoc": 0.51,
+  "pm25": 19,
+  "noise": 45,
+  "illuminance": 339
+}
+2024-12-04 10:32:47,646 - INFO - Response status code: 201
+2024-12-04 10:32:47,646 - INFO - Response data: {
+  "id": 9,
+  "room": 5,
+  "timestamp": "2024-12-04T10:32:47.642305Z",
+  "temperature": 25.7,
+  "humidity": 72.0,
+  "co2": 771.0,
+  "tvoc": 0.51,
+  "pm25": 19.0,
+  "noise": 45.0,
+  "illuminance": 339.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:48,147 - INFO - Making GET request to: http://web:8000/api/rooms/5/status/
+2024-12-04 10:32:48,165 - INFO - Response status code: 200
+2024-12-04 10:32:48,166 - INFO - Response data: {
+  "room_number": "105",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 9,
+    "room": 5,
+    "timestamp": "2024-12-04T10:32:47.642305Z",
+    "temperature": 25.7,
+    "humidity": 72.0,
+    "co2": 771.0,
+    "tvoc": 0.51,
+    "pm25": 19.0,
+    "noise": 45.0,
+    "illuminance": 339.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 7,
+    "room": 5,
+    "timestamp": "2024-12-04T10:32:42.312090Z",
+    "presence_detected": true,
+    "motion_level": 65,
+    "presence_state": "occupied",
+    "sensitivity": 0.7,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 5,
+    "device": 5,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:30.784837Z",
+    "updated_at": "2024-12-04T10:32:30.802429Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:48,166 - INFO - Room 5 status after environmental change:
+2024-12-04 10:32:48,167 - INFO - {
+  "room_number": "105",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 9,
+    "room": 5,
+    "timestamp": "2024-12-04T10:32:47.642305Z",
+    "temperature": 25.7,
+    "humidity": 72.0,
+    "co2": 771.0,
+    "tvoc": 0.51,
+    "pm25": 19.0,
+    "noise": 45.0,
+    "illuminance": 339.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 7,
+    "room": 5,
+    "timestamp": "2024-12-04T10:32:42.312090Z",
+    "presence_detected": true,
+    "motion_level": 65,
+    "presence_state": "occupied",
+    "sensitivity": 0.7,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 5,
+    "device": 5,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:30.784837Z",
+    "updated_at": "2024-12-04T10:32:30.802429Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:48,167 - INFO - Making POST request to: http://web:8000/api/rooms/6/data/iaq/
+2024-12-04 10:32:48,168 - INFO - Request data: {
+  "room": 6,
+  "temperature": 25.1,
+  "humidity": 67,
+  "co2": 822,
+  "tvoc": 0.35,
+  "pm25": 13,
+  "noise": 44,
+  "illuminance": 346
+}
+2024-12-04 10:32:48,180 - INFO - Response status code: 201
+2024-12-04 10:32:48,180 - INFO - Response data: {
+  "id": 10,
+  "room": 6,
+  "timestamp": "2024-12-04T10:32:48.176368Z",
+  "temperature": 25.1,
+  "humidity": 67.0,
+  "co2": 822.0,
+  "tvoc": 0.35,
+  "pm25": 13.0,
+  "noise": 44.0,
+  "illuminance": 346.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:48,681 - INFO - Making GET request to: http://web:8000/api/rooms/6/status/
+2024-12-04 10:32:48,696 - INFO - Response status code: 200
+2024-12-04 10:32:48,697 - INFO - Response data: {
+  "room_number": "201",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 10,
+    "room": 6,
+    "timestamp": "2024-12-04T10:32:48.176368Z",
+    "temperature": 25.1,
+    "humidity": 67.0,
+    "co2": 822.0,
+    "tvoc": 0.35,
+    "pm25": 13.0,
+    "noise": 44.0,
+    "illuminance": 346.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 8,
+    "room": 6,
+    "timestamp": "2024-12-04T10:32:42.842271Z",
+    "presence_detected": true,
+    "motion_level": 71,
+    "presence_state": "occupied",
+    "sensitivity": 0.7,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 6,
+    "device": 6,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:31.837262Z",
+    "updated_at": "2024-12-04T10:32:31.853576Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:48,697 - INFO - Room 6 status after environmental change:
+2024-12-04 10:32:48,698 - INFO - {
+  "room_number": "201",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 10,
+    "room": 6,
+    "timestamp": "2024-12-04T10:32:48.176368Z",
+    "temperature": 25.1,
+    "humidity": 67.0,
+    "co2": 822.0,
+    "tvoc": 0.35,
+    "pm25": 13.0,
+    "noise": 44.0,
+    "illuminance": 346.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 8,
+    "room": 6,
+    "timestamp": "2024-12-04T10:32:42.842271Z",
+    "presence_detected": true,
+    "motion_level": 71,
+    "presence_state": "occupied",
+    "sensitivity": 0.7,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 6,
+    "device": 6,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:31.837262Z",
+    "updated_at": "2024-12-04T10:32:31.853576Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:48,698 - INFO - Making POST request to: http://web:8000/api/rooms/7/data/iaq/
+2024-12-04 10:32:48,701 - INFO - Request data: {
+  "room": 7,
+  "temperature": 24.1,
+  "humidity": 75,
+  "co2": 953,
+  "tvoc": 0.61,
+  "pm25": 14,
+  "noise": 43,
+  "illuminance": 470
+}
+2024-12-04 10:32:48,713 - INFO - Response status code: 201
+2024-12-04 10:32:48,714 - INFO - Response data: {
+  "id": 11,
+  "room": 7,
+  "timestamp": "2024-12-04T10:32:48.709858Z",
+  "temperature": 24.1,
+  "humidity": 75.0,
+  "co2": 953.0,
+  "tvoc": 0.61,
+  "pm25": 14.0,
+  "noise": 43.0,
+  "illuminance": 470.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:49,215 - INFO - Making GET request to: http://web:8000/api/rooms/7/status/
+2024-12-04 10:32:49,230 - INFO - Response status code: 200
+2024-12-04 10:32:49,230 - INFO - Response data: {
+  "room_number": "202",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 11,
+    "room": 7,
+    "timestamp": "2024-12-04T10:32:48.709858Z",
+    "temperature": 24.1,
+    "humidity": 75.0,
+    "co2": 953.0,
+    "tvoc": 0.61,
+    "pm25": 14.0,
+    "noise": 43.0,
+    "illuminance": 470.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 9,
+    "room": 7,
+    "timestamp": "2024-12-04T10:32:43.373326Z",
+    "presence_detected": true,
+    "motion_level": 87,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 7,
+    "device": 7,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:32.888140Z",
+    "updated_at": "2024-12-04T10:32:32.906414Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:49,231 - INFO - Room 7 status after environmental change:
+2024-12-04 10:32:49,232 - INFO - {
+  "room_number": "202",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 11,
+    "room": 7,
+    "timestamp": "2024-12-04T10:32:48.709858Z",
+    "temperature": 24.1,
+    "humidity": 75.0,
+    "co2": 953.0,
+    "tvoc": 0.61,
+    "pm25": 14.0,
+    "noise": 43.0,
+    "illuminance": 470.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 9,
+    "room": 7,
+    "timestamp": "2024-12-04T10:32:43.373326Z",
+    "presence_detected": true,
+    "motion_level": 87,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 7,
+    "device": 7,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:32.888140Z",
+    "updated_at": "2024-12-04T10:32:32.906414Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:49,232 - INFO - Making POST request to: http://web:8000/api/rooms/8/data/iaq/
+2024-12-04 10:32:49,233 - INFO - Request data: {
+  "room": 8,
+  "temperature": 24.0,
+  "humidity": 69,
+  "co2": 704,
+  "tvoc": 0.43,
+  "pm25": 15,
+  "noise": 39,
+  "illuminance": 346
+}
+2024-12-04 10:32:49,246 - INFO - Response status code: 201
+2024-12-04 10:32:49,247 - INFO - Response data: {
+  "id": 12,
+  "room": 8,
+  "timestamp": "2024-12-04T10:32:49.242097Z",
+  "temperature": 24.0,
+  "humidity": 69.0,
+  "co2": 704.0,
+  "tvoc": 0.43,
+  "pm25": 15.0,
+  "noise": 39.0,
+  "illuminance": 346.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:49,748 - INFO - Making GET request to: http://web:8000/api/rooms/8/status/
+2024-12-04 10:32:49,762 - INFO - Response status code: 200
+2024-12-04 10:32:49,763 - INFO - Response data: {
+  "room_number": "203",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 12,
+    "room": 8,
+    "timestamp": "2024-12-04T10:32:49.242097Z",
+    "temperature": 24.0,
+    "humidity": 69.0,
+    "co2": 704.0,
+    "tvoc": 0.43,
+    "pm25": 15.0,
+    "noise": 39.0,
+    "illuminance": 346.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 12,
+    "room": 8,
+    "timestamp": "2024-12-04T10:32:43.907332Z",
+    "presence_detected": true,
+    "motion_level": 89,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 8,
+    "device": 8,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:33.943774Z",
+    "updated_at": "2024-12-04T10:32:33.963214Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:49,763 - INFO - Room 8 status after environmental change:
+2024-12-04 10:32:49,764 - INFO - {
+  "room_number": "203",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 12,
+    "room": 8,
+    "timestamp": "2024-12-04T10:32:49.242097Z",
+    "temperature": 24.0,
+    "humidity": 69.0,
+    "co2": 704.0,
+    "tvoc": 0.43,
+    "pm25": 15.0,
+    "noise": 39.0,
+    "illuminance": 346.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 12,
+    "room": 8,
+    "timestamp": "2024-12-04T10:32:43.907332Z",
+    "presence_detected": true,
+    "motion_level": 89,
+    "presence_state": "occupied",
+    "sensitivity": 0.9,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 8,
+    "device": 8,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:33.943774Z",
+    "updated_at": "2024-12-04T10:32:33.963214Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:49,764 - INFO - Making POST request to: http://web:8000/api/rooms/9/data/iaq/
+2024-12-04 10:32:49,765 - INFO - Request data: {
+  "room": 9,
+  "temperature": 24.4,
+  "humidity": 71,
+  "co2": 605,
+  "tvoc": 0.44,
+  "pm25": 10,
+  "noise": 39,
+  "illuminance": 324
+}
+2024-12-04 10:32:49,779 - INFO - Response status code: 201
+2024-12-04 10:32:49,779 - INFO - Response data: {
+  "id": 13,
+  "room": 9,
+  "timestamp": "2024-12-04T10:32:49.775742Z",
+  "temperature": 24.4,
+  "humidity": 71.0,
+  "co2": 605.0,
+  "tvoc": 0.44,
+  "pm25": 10.0,
+  "noise": 39.0,
+  "illuminance": 324.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:50,280 - INFO - Making GET request to: http://web:8000/api/rooms/9/status/
+2024-12-04 10:32:50,295 - INFO - Response status code: 200
+2024-12-04 10:32:50,297 - INFO - Response data: {
+  "room_number": "204",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 13,
+    "room": 9,
+    "timestamp": "2024-12-04T10:32:49.775742Z",
+    "temperature": 24.4,
+    "humidity": 71.0,
+    "co2": 605.0,
+    "tvoc": 0.44,
+    "pm25": 10.0,
+    "noise": 39.0,
+    "illuminance": 324.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 13,
+    "room": 9,
+    "timestamp": "2024-12-04T10:32:44.443705Z",
+    "presence_detected": true,
+    "motion_level": 93,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 9,
+    "device": 9,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:34.999991Z",
+    "updated_at": "2024-12-04T10:32:35.016547Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:50,297 - INFO - Room 9 status after environmental change:
+2024-12-04 10:32:50,298 - INFO - {
+  "room_number": "204",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 13,
+    "room": 9,
+    "timestamp": "2024-12-04T10:32:49.775742Z",
+    "temperature": 24.4,
+    "humidity": 71.0,
+    "co2": 605.0,
+    "tvoc": 0.44,
+    "pm25": 10.0,
+    "noise": 39.0,
+    "illuminance": 324.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 13,
+    "room": 9,
+    "timestamp": "2024-12-04T10:32:44.443705Z",
+    "presence_detected": true,
+    "motion_level": 93,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 9,
+    "device": 9,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:34.999991Z",
+    "updated_at": "2024-12-04T10:32:35.016547Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:50,299 - INFO - Making POST request to: http://web:8000/api/rooms/10/data/iaq/
+2024-12-04 10:32:50,299 - INFO - Request data: {
+  "room": 10,
+  "temperature": 26.8,
+  "humidity": 66,
+  "co2": 641,
+  "tvoc": 0.37,
+  "pm25": 15,
+  "noise": 39,
+  "illuminance": 305
+}
+2024-12-04 10:32:50,312 - INFO - Response status code: 201
+2024-12-04 10:32:50,312 - INFO - Response data: {
+  "id": 14,
+  "room": 10,
+  "timestamp": "2024-12-04T10:32:50.308943Z",
+  "temperature": 26.8,
+  "humidity": 66.0,
+  "co2": 641.0,
+  "tvoc": 0.37,
+  "pm25": 15.0,
+  "noise": 39.0,
+  "illuminance": 305.0,
+  "online_status": true,
+  "device_status": "operational"
+}
+2024-12-04 10:32:50,813 - INFO - Making GET request to: http://web:8000/api/rooms/10/status/
+2024-12-04 10:32:50,829 - INFO - Response status code: 200
+2024-12-04 10:32:50,829 - INFO - Response data: {
+  "room_number": "205",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 14,
+    "room": 10,
+    "timestamp": "2024-12-04T10:32:50.308943Z",
+    "temperature": 26.8,
+    "humidity": 66.0,
+    "co2": 641.0,
+    "tvoc": 0.37,
+    "pm25": 15.0,
+    "noise": 39.0,
+    "illuminance": 305.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 14,
+    "room": 10,
+    "timestamp": "2024-12-04T10:32:44.975910Z",
+    "presence_detected": true,
+    "motion_level": 75,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 10,
+    "device": 10,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:36.053648Z",
+    "updated_at": "2024-12-04T10:32:36.070012Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:50,830 - INFO - Room 10 status after environmental change:
+2024-12-04 10:32:50,830 - INFO - {
+  "room_number": "205",
+  "occupied": false,
+  "last_cleaned": null,
+  "environmental_data": {
+    "id": 14,
+    "room": 10,
+    "timestamp": "2024-12-04T10:32:50.308943Z",
+    "temperature": 26.8,
+    "humidity": 66.0,
+    "co2": 641.0,
+    "tvoc": 0.37,
+    "pm25": 15.0,
+    "noise": 39.0,
+    "illuminance": 305.0,
+    "online_status": true,
+    "device_status": "operational"
+  },
+  "presence_data": {
+    "id": 14,
+    "room": 10,
+    "timestamp": "2024-12-04T10:32:44.975910Z",
+    "presence_detected": true,
+    "motion_level": 75,
+    "presence_state": "occupied",
+    "sensitivity": 0.8,
+    "online_status": true
+  },
+  "ac_status": {
+    "id": 10,
+    "device": 10,
+    "temperature": 24.0,
+    "mode": "AUTO",
+    "fan_speed": 1,
+    "humidity_control": true,
+    "target_humidity": 50,
+    "created_at": "2024-12-04T10:32:36.053648Z",
+    "updated_at": "2024-12-04T10:32:36.070012Z"
+  },
+  "lighting_status": null
+}
+2024-12-04 10:32:50,830 - INFO - 
+========================================
+2024-12-04 10:32:50,831 - INFO - Running test: test_energy_monitoring
+2024-12-04 10:32:50,831 - INFO - 
+Testing energy monitoring...
+2024-12-04 10:32:50,832 - INFO - Making GET request to: http://web:8000/api/rooms/1/energy-report/
+2024-12-04 10:32:50,845 - INFO - Response status code: 200
+2024-12-04 10:32:50,846 - INFO - Response data: {
+  "total_consumption": null,
+  "average_daily_consumption": []
+}
+2024-12-04 10:32:50,846 - INFO - Energy report retrieved successfully:
+2024-12-04 10:32:50,846 - INFO - {
+  "total_consumption": null,
+  "average_daily_consumption": []
+}
+2024-12-04 10:32:50,847 - INFO - 
+Test Summary:
+2024-12-04 10:32:50,847 - INFO - test_room_status: PASSED
+2024-12-04 10:32:50,847 - INFO - test_ac_control: PASSED
+2024-12-04 10:32:50,848 - INFO - test_occupancy_response: PASSED
+2024-12-04 10:32:50,848 - INFO - test_environmental_response: PASSED
+2024-12-04 10:32:50,848 - INFO - test_energy_monitoring: PASSED

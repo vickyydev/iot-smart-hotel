@@ -1,0 +1,24 @@
+datetime,device_id,datapoint,value
+2023-07-13 13:58:15.658,life_being,online_status,"online"
+2023-07-13 13:58:25.136,life_being,sensitivity,100.0
+2023-07-13 13:58:30.132,life_being,presence_state,"unoccupied"
+2023-07-13 13:58:35.189,life_being,presence_state,"unoccupied"
+2023-07-13 13:58:40.155,life_being,presence_state,"unoccupied"
+2023-07-13 13:58:55.149,life_being,presence_state,"unoccupied"
+2023-07-13 13:59:10.159,life_being,sensitivity,100.0
+2023-07-13 13:59:20.079,life_being,online_status,"online"
+2023-07-13 13:59:35.230,life_being,sensitivity,100.0
+2023-07-13 13:59:40.210,life_being,sensitivity,100.0
+2023-07-13 13:59:40.210,life_being,presence_state,"unoccupied"
+2023-07-13 13:59:45.119,life_being,sensitivity,100.0
+2023-07-13 13:59:50.113,life_being,presence_state,"unoccupied"
+2023-07-13 13:59:55.137,life_being,online_status,"online"
+2023-07-13 14:00:00.107,life_being,presence_state,"unoccupied"
+2023-07-13 14:00:05.200,iaq,noise,35.5
+2023-07-13 14:00:10.250,iaq,co2,400.0
+2023-07-13 14:00:15.300,iaq,pm25,12.0
+2023-07-13 14:00:20.350,iaq,humidity,45.0
+2023-07-13 14:00:25.400,iaq,temperature,22.0
+2023-07-13 14:00:30.450,iaq,illuminance,300.0
+2023-07-13 14:00:35.500,iaq,online_status,"online"
+2023-07-13 14:00:40.550,iaq,device_status,"operational"

@@ -1,0 +1,155 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+      - ./entrypoint.sh:/code/entrypoint.sh  
+      - static_volume:/code/staticfiles
+      - media_volume:/code/media
+      - log_volume:/code/logs
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: smart_hotel_project.settings
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_PASSWORD: adminpass
+      DJANGO_SUPERUSER_EMAIL: admin@example.com
+      POSTGRES_DB: smart_hotel
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      DATABASE_URL: postgres://postgres:postgres@db:5432/smart_hotel
+      ALLOWED_HOSTS: localhost,127.0.0.1,web,*
+      DEBUG: 'True'
+      SECRET_KEY: your-secret-key-here
+      MQTT_BROKER: mqtt
+      MQTT_PORT: '1883'
+      AZURE_OPENAI_API_KEY: ${AZURE_OPENAI_API_KEY}
+      AZURE_OPENAI_ENDPOINT: ${AZURE_OPENAI_ENDPOINT}
+      AZURE_OPENAI_API_VERSION: ${AZURE_OPENAI_API_VERSION}
+      AZURE_OPENAI_DEPLOYMENT_NAME: ${AZURE_OPENAI_DEPLOYMENT_NAME}
+      AZURE_OPENAI_ASSISTANT_ID: ${AZURE_OPENAI_ASSISTANT_ID}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mqtt:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - hotel_network
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: smart_hotel
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hotel_network
+
+  redis:
+    image: redis:6
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - hotel_network
+
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    healthcheck:
+      test: ["CMD", "timeout", "5", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - hotel_network
+
+  iaq_sensor:
+    build:
+      context: .
+      dockerfile: Dockerfile.iaq_sensor
+    environment:
+      ROOM_ID: '1'
+      MQTT_BROKER: mqtt
+      MQTT_PORT: '1883'
+    depends_on:
+      mqtt:
+        condition: service_healthy
+    networks:
+      - hotel_network
+
+  life_being_sensor:
+    build:
+      context: .
+      dockerfile: Dockerfile.life_being_sensor
+    environment:
+      ROOM_ID: '1'
+      MQTT_BROKER: mqtt
+      MQTT_PORT: '1883'
+    depends_on:
+      mqtt:
+        condition: service_healthy
+    networks:
+      - hotel_network
+
+  event_handler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8001
+    volumes:
+      - .:/code
+    environment:
+      DJANGO_SETTINGS_MODULE: smart_hotel_project.settings
+      DATABASE_URL: postgres://postgres:postgres@db:5432/smart_hotel
+      MQTT_BROKER: mqtt
+      MQTT_PORT: '1883'
+      RUN_EVENT_STREAM: 'true'
+      PYTHONUNBUFFERED: 1
+    restart: always
+    depends_on:
+      - web
+      - mqtt
+    networks:
+      - hotel_network
+
+networks:
+  hotel_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  static_volume:
+  media_volume:
+  log_volume:

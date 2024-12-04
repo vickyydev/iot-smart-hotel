@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Smart Hotel Assistant</title>
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --bg-color: #f3f4f6;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: var(--bg-color);
+      }
+
+      .chat-container {
+        max-width: 800px;
+        margin: 20px auto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .chat-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .chat-messages {
+        height: 400px;
+        overflow-y: auto;
+        padding: 20px;
+      }
+
+      .message {
+        margin: 10px 0;
+        padding: 10px 15px;
+        border-radius: 10px;
+        max-width: 70%;
+        word-wrap: break-word;
+      }
+
+      .user-message {
+        background: var(--primary-color);
+        color: white;
+        margin-left: auto;
+      }
+
+      .bot-message {
+        background: var(--bg-color);
+        border: 1px solid #ddd;
+      }
+
+      .input-area {
+        padding: 20px;
+        border-top: 1px solid #ddd;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      input[type="text"] {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 10px 20px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+
+      .controls {
+        display: flex;
+        gap: 10px;
+        padding: 10px 20px;
+        background: var(--bg-color);
+      }
+
+      .recording {
+        background: red !important;
+      }
+
+      .preview-image {
+        max-width: 200px;
+        max-height: 200px;
+        margin: 10px 0;
+      }
+
+      pre {
+        background: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+      .response-card {
+        background: #f8f9fa;
+        padding: 12px;
+        border-radius: 8px;
+        margin: 8px 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .response-card h3 {
+        margin: 0 0 8px 0;
+        color: #2563eb;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .environmental-data,
+      .device-settings,
+      .consumption-data {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .response-card p {
+        margin: 4px 0;
+        font-size: 14px;
+        color: #374151;
+      }
+
+      .data-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .data-label {
+        font-weight: 500;
+        color: #6b7280;
+      }
+
+      .data-value {
+        color: #111827;
+      }
+
+      .error-message {
+        color: #dc2626;
+        background: #fee2e2;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #fecaca;
+      }
+    </style>
+  </head>
+  <body>
+    {% csrf_token %}
+    <div class="chat-container">
+      <div class="chat-header">
+        <h2>Smart Hotel Assistant</h2>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="message bot-message">{{ initial_message }}</div>
+      </div>
+
+      <div class="controls">
+        <button id="voiceButton">🎤 Voice</button>
+        <input
+          type="file"
+          id="imageInput"
+          accept="image/*"
+          style="display: none"
+        />
+        <button onclick="document.getElementById('imageInput').click()">
+          📷 Image
+        </button>
+        <button onclick="clearChat()">🗑️ Clear</button>
+      </div>
+
+      <div class="input-area">
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Type your message..."
+        />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <script>
+      // CSRF token handling
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+      const csrftoken = getCookie("csrftoken");
+
+      // Voice recording setup
+      let mediaRecorder;
+      let audioChunks = [];
+      let isRecording = false;
+
+      async function setupVoiceRecording() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          mediaRecorder = new MediaRecorder(stream);
+
+          mediaRecorder.ondataavailable = (event) => {
+            audioChunks.push(event.data);
+          };
+
+          mediaRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              sendToServer("voice", { audio: reader.result });
+            reader.readAsDataURL(audioBlob);
+            audioChunks = [];
+          };
+
+          document.getElementById("voiceButton").onclick = toggleRecording;
+        } catch (err) {
+          console.error("Error accessing microphone:", err);
+        }
+      }
+
+      function toggleRecording() {
+        const button = document.getElementById("voiceButton");
+        if (!isRecording) {
+          mediaRecorder.start();
+          button.textContent = "⏹️ Stop";
+          button.classList.add("recording");
+          isRecording = true;
+        } else {
+          mediaRecorder.stop();
+          button.textContent = "🎤 Voice";
+          button.classList.remove("recording");
+          isRecording = false;
+        }
+      }
+
+      // Image handling
+      document.getElementById("imageInput").onchange = function (event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            addMessage(
+              "user",
+              `<img src="${reader.result}" class="preview-image">`
+            );
+            sendToServer("image", { image: reader.result });
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+
+      // Message handling
+      async function sendToServer(type, data) {
+        try {
+          const response = await fetch("/chat/api/message/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrftoken,
+            },
+            credentials: "include",
+            body: JSON.stringify({ type, ...data }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          const result = await response.json();
+          
+
+          if (result.response && typeof result.response === "object") {
+            if (result.response.action === "api_call") {
+              try {
+                const apiResult = await executeAPICall(result.response);
+                addMessage("bot", apiResult);
+              } catch (error) {
+                addMessage(
+                  "bot",
+                  `<div class="error-message">Error: ${error.message}</div>`
+                );
+              }
+            } else if (result.response.action === "mqtt_publish") {
+              addMessage(
+                "bot",
+                `<div class="response-card"><p>Command sent successfully</p></div>`
+              );
+            }
+          } else {
+            addMessage("bot", result.response);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          addMessage(
+            "bot",
+            `<div class="error-message">Error: ${error.message}</div>`
+          );
+        }
+      }
+
+      // Message formatting and display
+      function addMessage(sender, content) {
+        const messages = document.getElementById("chatMessages");
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${sender}-message`;
+
+        if (typeof content === "object") {
+          messageDiv.innerHTML = formatAPIResponse(content);
+        } else {
+          messageDiv.innerHTML = content;
+        }
+
+        messages.appendChild(messageDiv);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function formatDate(date) {
+        if (!date) return "Not available";
+        return new Date(date).toLocaleString();
+      }
+
+      function formatEnvironmentalData(data) {
+        if (!data) return "<p>No environmental data available</p>";
+        return `
+                <div class="environmental-data">
+                    <div class="data-row">
+                        <span class="data-label">Temperature:</span>
+                        <span class="data-value">${
+                          data.temperature || "N/A"
+                        }°C</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Humidity:</span>
+                        <span class="data-value">${
+                          data.humidity || "N/A"
+                        }%</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">CO2:</span>
+                        <span class="data-value">${data.co2 || "N/A"} ppm</span>
+                    </div>
+                </div>
+            `;
+      }
+
+      function formatAPIResponse(data) {
+        if (!data) return '<div class="error-message">No data available</div>';
+
+        
+        if (data.results && data.results.length > 0) {
+        const latestData = data.results[0];
+        return `
+            <div class="response-card">
+                <h3>Air Quality in Room ${latestData.room}</h3>
+                <div class="data-row">
+                    <span class="data-label">Temperature:</span>
+                    <span class="data-value">${latestData.temperature.toFixed(1)}°C</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Humidity:</span>
+                    <span class="data-value">${latestData.humidity.toFixed(1)}%</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">CO₂ Levels:</span>
+                    <span class="data-value">${latestData.co2.toFixed(0)} ppm</span>
+                </div>
+                <!-- Add more fields as necessary -->
+            </div>
+        `;
+    }
+
+
+         // Handle AC Control Response
+    if (data.device_type === 'AC' && data.status === 'success') {
+        return `
+            <div class="response-card">
+                <h3>AC Settings Updated for Room ${data.room_number}</h3>
+                <div class="data-row">
+                    <span class="data-label">Temperature:</span>
+                    <span class="data-value">${data.settings.temperature}°C</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Mode:</span>
+                    <span class="data-value">${data.settings.mode}</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Fan Speed:</span>
+                    <span class="data-value">${data.settings.fan_speed}</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Humidity Control:</span>
+                    <span class="data-value">${data.settings.humidity_control ? 'Enabled' : 'Disabled'}</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Target Humidity:</span>
+                    <span class="data-value">${data.settings.target_humidity}%</span>
+                </div>
+            </div>
+        `;
+    }
+
+        if (data.room_number !== undefined) {
+          return `
+                    <div class="response-card">
+                        <h3>Room ${data.room_number}</h3>
+                        <div class="data-row">
+                            <span class="data-label">Status:</span>
+                            <span class="data-value">${
+                              data.occupied ? "Occupied" : "Available"
+                            }</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Last Cleaned:</span>
+                            <span class="data-value">${formatDate(
+                              data.last_cleaned
+                            )}</span>
+                        </div>
+                        ${formatEnvironmentalData(data.environmental_data)}
+                    </div>
+                `;
+        }
+
+        if (data.total_consumption !== undefined) {
+          return `
+                    <div class="response-card">
+                        <h3>Energy Report</h3>
+                        <div class="data-row">
+                            <span class="data-label">Total Consumption:</span>
+                            <span class="data-value">${
+                              data.total_consumption
+                            } kWh</span>
+                        </div>
+                        <div class="consumption-data">
+                            ${formatConsumptionData(
+                              data.average_daily_consumption
+                            )}
+                        </div>
+                    </div>
+                `;
+        }
+
+        if (data.device_type !== undefined) {
+          return `
+                    <div class="response-card">
+                        <h3>${data.device_type} Update</h3>
+                        <div class="data-row">
+                            <span class="data-label">Status:</span>
+                            <span class="data-value">${data.status}</span>
+                        </div>
+                        ${formatDeviceSettings(data.settings)}
+                    </div>
+                `;
+        }
+
+        return `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+      }
+
+      function formatConsumptionData(consumption) {
+        if (!consumption || !Array.isArray(consumption))
+          return "<p>No consumption data available</p>";
+        return consumption
+          .map(
+            (item) => `
+                    <div class="data-row">
+                        <span class="data-label">${
+                          item.device__device_type
+                        }:</span>
+                        <span class="data-value">${item.avg_usage.toFixed(
+                          2
+                        )} kWh</span>
+                    </div>
+                `
+          )
+          .join("");
+      }
+
+      function formatDeviceSettings(settings) {
+        if (!settings) return "<p>No settings available</p>";
+        return `
+                <div class="device-settings">
+                    ${Object.entries(settings)
+                      .map(
+                        ([key, value]) => `
+                            <div class="data-row">
+                                <span class="data-label">${key}:</span>
+                                <span class="data-value">${value}</span>
+                            </div>
+                        `
+                      )
+                      .join("")}
+                </div>
+            `;
+      }
+
+      async function executeAPICall(actionData) {
+        const baseUrl = window.location.origin;
+        let url = `${baseUrl}${actionData.endpoint}`;
+
+        try {
+          const headers = {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "X-CSRFToken": csrftoken,
+          };
+
+          let config = {
+            method: actionData.method,
+            headers: headers,
+            credentials: "include",
+          };
+
+          if (actionData.method === "POST") {
+            config.body = JSON.stringify(actionData.params);
+          }
+
+          if (
+            actionData.method === "GET" &&
+            Object.keys(actionData.params).length > 0
+          ) {
+            const queryParams = new URLSearchParams(actionData.params);
+            url += `?${queryParams.toString()}`;
+          }
+
+          const response = await fetch(url, config);
+
+          if (!response.ok) {
+            throw new Error(`API call failed: ${response.status}`);
+          }
+
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("API call error:", error);
+          addMessage(
+            "bot",
+            `<div class="error-message">Failed to execute API call: ${error.message}</div>`
+          );
+          throw new Error(`Failed to execute API call: ${error.message}`);
+        }
+      }
+
+      function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const message = input.value.trim();
+        if (message) {
+          addMessage("user", message);
+          sendToServer("text", { message });
+          input.value = "";
+        }
+      }
+
+      async function clearChat() {
+        try {
+          const response = await fetch("/chat/api/clear/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrftoken,
+            },
+            credentials: "include",
+            body: JSON.stringify({
+              csrfmiddlewaretoken: csrftoken,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to clear chat");
+          }
+
+          document.getElementById("chatMessages").innerHTML = `
+                    <div class="message bot-message">
+                        How can I help you today?
+                    </div>
+                `;
+        } catch (error) {
+          console.error("Error clearing chat:", error);
+          addMessage(
+            "bot",
+            '<div class="error-message">Error clearing chat history</div>'
+          );
+        }
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("messageInput")
+          .addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              sendMessage();
+            }
+          });
+        setupVoiceRecording();
+      });
+    </script>
+  </body>
+</html>

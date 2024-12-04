@@ -1,0 +1,50 @@
+# Django and REST framework
+Django>=3.2,<4.0
+djangorestframework>=3.12.4
+django-filter>=23.2
+django-cors-headers>=4.2.0
+drf-nested-routers>=0.93.4
+Flask>=2.3.2
+
+# Database
+psycopg2-binary>=2.9.9
+dj-database-url>=2.1.0
+
+# Server
+gunicorn>=21.2.0
+whitenoise>=6.5.0
+
+# Environment and configuration
+python-dotenv>=1.0.0
+python-json-logger>=2.0.7
+
+# MQTT
+paho-mqtt>=1.6.1
+
+# Cache and sessions
+redis>=5.0.1
+django-redis>=5.4.0
+
+# Testing
+pytest==7.4.3
+pytest-django==4.7.0
+pytest-cov==4.1.0
+coverage==7.3.2
+factory-boy==3.3.0
+faker==19.13.0
+pytest-xdist==3.3.1
+
+# Utilities
+requests>=2.31.0
+urllib3>=2.0.7
+pytz>=2023.3
+PyJWT==2.4.0
+
+
+openai>=1.0.0
+Pillow>=10.0.0
+sounddevice>=0.4.6
+scipy>=1.11.3
+aiohttp>=3.8.4
+
+drf-nested-routers>=0.93.4

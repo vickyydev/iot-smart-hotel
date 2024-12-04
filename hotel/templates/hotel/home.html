@@ -1,0 +1,76 @@
+<!-- hotel/templates/hotel/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Hotel Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .endpoints {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .endpoint {
+            margin-bottom: 10px;
+        }
+        .endpoint code {
+            background-color: #e9ecef;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    <div class="container">
+        <div class="header">
+            <h1>Smart Hotel Management System</h1>
+            <p>Welcome to the Smart Hotel Management System API and Dashboard</p>
+        </div>
+
+        <div class="section">
+            <h2>Quick Links</h2>
+            <ul>
+                <li><a href="/admin/">Admin Interface</a></li>
+                <li><a href="/api/">API Root</a></li>
+                <li><a href="/health/">System Health Check</a></li>
+            </ul>
+        </div>
+
+        <div class="section endpoints">
+            <h2>Available API Endpoints</h2>
+            <div class="endpoint">
+                <code>GET /api/hotels/</code> - List all hotels
+            </div>
+            <div class="endpoint">
+                <code>GET /api/hotels/{id}/floors/</code> - List floors in a hotel
+            </div>
+            <div class="endpoint">
+                <code>GET /api/floors/{id}/rooms/</code> - List rooms on a floor
+            </div>
+            <div class="endpoint">
+                <code>GET /api/rooms/{id}/status/</code> - Get room status
+            </div>
+            <!-- Add more endpoints as needed -->
+        </div>
+    </div>
+</body>
+</html>
