@@ -35,16 +35,40 @@ cp .env.example .env
 
 3. Update the `.env` file with your configurations:
 ```env
-SECRET_KEY=your_secret_key_here
+# .env.example
+
+# Django Settings
+SECRET_KEY=replace_with_your_secret_key
 DEBUG=True
-ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-ROOM_ID=2 (create a hotel and floor and room inside and use the room id that is attached to the hotel and floor)
-POSTGRES_DB=smart_hotel
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-OPENAI_API_KEY=your_openai_key
-AZURE_ENDPOINT=your_azure_endpoint
-ASSISTANT_ID=your_assistant_id
+ALLOWED_HOSTS=localhost,127.0.0.1,[::1]
+
+
+ROOM_ID=1 
+
+# Postgres Database Settings
+POSTGRES_DB=replace_with_your_database_name
+POSTGRES_USER=replace_with_your_database_user
+POSTGRES_PASSWORD=replace_with_your_database_password
+
+# Database URL
+DATABASE_URL=postgres://your_user:your_password@db:5432/your_database
+
+# MQTT Settings
+MQTT_BROKER=replace_with_your_mqtt_broker_address
+MQTT_PORT=replace_with_your_mqtt_port
+MQTT_USERNAME=replace_with_your_mqtt_username
+MQTT_PASSWORD=replace_with_your_mqtt_password
+
+# API Base URL
+API_BASE_URL='http://localhost:8000'
+
+# Azure OpenAI API Settings
+AZURE_OPENAI_API_KEY=replace_with_your_azure_openai_api_key
+AZURE_OPENAI_API_VERSION=replace_with_your_azure_openai_api_version
+AZURE_OPENAI_ENDPOINT=replace_with_your_azure_openai_endpoint
+AZURE_OPENAI_DEPLOYMENT_NAME=replace_with_your_azure_openai_deployment_name
+AZURE_OPENAI_ASSISTANT_ID=replace_with_your_azure_openai_assistant_id
+
 ```
 
 ## Configuration
